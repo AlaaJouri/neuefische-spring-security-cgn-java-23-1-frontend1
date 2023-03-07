@@ -18,7 +18,9 @@ export default function SignInPage () {
             Authorization: `Basic ${window.btoa(`${username}:${password}`)}`
           }
         }).then(() => {
-          navigate("/");
+          const redirect = window.sessionStorage.getItem("signInRedirect") || "/";
+          window.sessionStorage.removeItem("signInRedirect");
+          navigate(redirect);
         }).catch(err => {
           alert(err.response.data.error);
         });
