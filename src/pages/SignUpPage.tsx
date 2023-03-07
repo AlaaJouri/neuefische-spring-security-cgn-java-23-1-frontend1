@@ -1,7 +1,6 @@
 import React from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
-import Cookies from "js-cookie";
 
 export default function SignUpPage () {
   const [username, setUsername] = React.useState<string>("");
@@ -12,18 +11,14 @@ export default function SignUpPage () {
     <div style={{padding: "5rem 0"}}>
       <form onSubmit={e => {
         e.preventDefault();
-        axios
-          .get("/api/csrf")
-          .then(() => axios.post("/api/users", {
-            username,
-            password
-          }, {
-            headers: { "X-XSRF-TOKEN": Cookies.get("XSRF-TOKEN") }
-          })).then(() => {
-            navigate("/sign-in");
-          }).catch(err => {
-            alert(err.response.data.error);
-          });
+        axios.post("/api/users", {
+          username,
+          password
+        }).then(() => {
+          navigate("/sign-in");
+        }).catch(err => {
+          alert(err.response.data.error);
+        });
       }}>
         <div>
           <label>
