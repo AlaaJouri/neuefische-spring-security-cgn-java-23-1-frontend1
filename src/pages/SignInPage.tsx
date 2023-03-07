@@ -1,23 +1,24 @@
 import React from "react";
-import axios from "axios";
 import {useNavigate} from "react-router-dom";
+import axios from "axios";
 
-export default function SignUpPage () {
+export default function SignInPage () {
   const [username, setUsername] = React.useState<string>("");
   const [password, setPassword] = React.useState<string>("");
   const navigate = useNavigate();
 
   return (
     <div style={{padding: "5rem 0"}}>
-      <h1>Sign Up</h1>
+      <h1>Sign In</h1>
 
       <form onSubmit={e => {
         e.preventDefault();
-        axios.post("/api/users", {
-          username,
-          password
+        axios.post("/api/users/login", {}, {
+          headers: {
+            Authorization: `Basic ${window.btoa(`${username}:${password}`)}`
+          }
         }).then(() => {
-          navigate("/sign-in");
+          navigate("/");
         }).catch(err => {
           alert(err.response.data.error);
         });
@@ -44,7 +45,7 @@ export default function SignUpPage () {
           </label>
         </div>
 
-        <button type="submit">Sign Up</button>
+        <button type="submit">Sign In</button>
       </form>
     </div>
   );
