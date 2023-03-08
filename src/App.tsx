@@ -7,6 +7,7 @@ import Cookies from "js-cookie";
 import SignInPage from "./pages/SignInPage";
 import CarsPage from "./pages/CarsPage";
 import MixedAuthPage from "./pages/MixedAuthPage";
+import LogOut from "./components/LogOut";
 
 axios.interceptors.request.use(function (config) {
   return fetch("/api/csrf").then(() => {
@@ -31,9 +32,10 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Link to={"/sign-up"}>Sign Up</Link> &nbsp; <Link to={"/sign-in"}>Sign In</Link> &nbsp; <Link to={"/cars"}>Cars</Link> &nbsp; <Link to={"/mixed-auth-page"}>Mixed Auth Page</Link>
+        <Link to={"/sign-up"}>Sign Up</Link> &nbsp; <Link to={"/sign-in"}>Sign In</Link> &nbsp; <Link to={"/cars"}>Cars</Link> &nbsp; <Link to={"/mixed-auth-page"}>Mixed Auth Page</Link> &nbsp; <LogOut/>
 
         <Routes>
+          <Route path={"/"} element={<CarsPage/>}/>
           <Route path={"/sign-up"} element={<SignUpPage/>}/>
           <Route path={"/sign-in"} element={<SignInPage/>}/>
           <Route path={"/cars"} element={<CarsPage/>}/>
